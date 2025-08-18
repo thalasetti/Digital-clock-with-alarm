@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Clock with Alarm</title>
+  <style>
+    /* ----------------------------
+       Page Styling
+    -----------------------------*/
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #1a1a1a; /* Dark background */
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Title */
+    h1 {
+      margin-top: 40px;
+      font-size: 2rem;
+      color: #00ffcc; /* Neon color */
+    }
+
+    /* Clock box */
+    #clock {
+      font-size: 50px;
+      margin: 20px 0;
+      padding: 15px;
+      border: 2px solid #00ffcc;
+      border-radius: 10px;
+      display: inline-block;
+      background: #000;
+      color: #00ffcc;
+      box-shadow: 0px 0px 10px #00ffcc;
+    }
+
+    /* Inputs and button */
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    input {
+      background: #333;
+      color: white;
+    }
+
+    button {
+      background: #00cc66;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #00994d;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Digital Clock with Alarm</h1>
+
+  <!-- Clock Display -->
+  <div id="clock">00:00:00</div><br>
+
+  <!-- Alarm Time Input -->
+  <input type="time" id="alarmTime">
+  <button onclick="setAlarm()">Set Alarm</button>
+
+  <!-- Alarm Sound (beep) -->
+  <audio id="alarmSound">
+    <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+  </audio>
+
+  <script>
+    // Store alarm time
+    let alarmTime = null;
+    let alarmOn = false;
+
+    // Update clock every second
+    function updateClock() {
+      let now = new Date();
+
+      // Format current time as HH:MM:SS
+      let hours = String(now.getHours()).padStart(2, "0");
+      let minutes = String(now.getMinutes()).padStart(2, "0");
+      let seconds = String(now.getSeconds()).padStart(2, "0");
+
+      // Show the time on screen
+      document.getElementById("clock").innerText = ${hours}:${minutes}:${seconds};
+
+      // Check alarm condition
+      if (alarmOn && alarmTime === ${hours}:${minutes}) {
+        document.getElementById("alarmSound").play();
+      }
+    }
+
+    // Set alarm
+    function setAlarm() {
+      let selected = document.getElementById("alarmTime").value;
+
+      if (selected) {
+        alarmTime = selected;   // Store chosen time
+        alarmOn = true;
+        alert(✅ Alarm set for ${alarmTime});
+      } else {
+        alert("⚠ Please pick a time first.");
+      }
+    }
+
+    // Start the clock
+    setInterval(updateClock, 1000);
+  </script>
+
+</body>
+</html>
